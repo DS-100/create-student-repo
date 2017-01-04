@@ -44,3 +44,6 @@ Style/DotPosition:
 
 Style/TrailingCommaInLiteral:
   Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104091012) do
+ActiveRecord::Schema.define(version: 20170104201509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170104091012) do
     t.integer  "sid",             null: false
     t.string   "email",           null: false
     t.string   "github_username", null: false
+    t.string   "repo_name"
     t.index ["email"], name: "index_registrations_on_email", unique: true, using: :btree
     t.index ["github_username"], name: "index_registrations_on_github_username", unique: true, using: :btree
     t.index ["sid"], name: "index_registrations_on_sid", unique: true, using: :btree

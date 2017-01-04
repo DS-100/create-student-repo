@@ -1,2 +1,17 @@
-<h1>Registrations#show</h1>
-<p>Find me in app/views/registrations/show.html.erb</p>
+<h1>Repo created successfully</h1>
+
+<p>
+Hi <%= "#{@registration.first_name} #{@registration.last_name}" %>,
+your repo was created successfully.
+</p>
+
+
+<p>
+The Github username <%= @registration.github_username %> was added to the repo
+<%= @registration.repo_name %>.
+</p>
+
+<p>
+Please visit <a href="https://github.com/orgs/DS-100/invitation">
+https://github.com/orgs/DS-100/invitation</a> to gain access to the repo.
+</p>

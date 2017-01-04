@@ -1,58 +1,48 @@
+# frozen_string_literal: true
 class CreateGithubRepo
   ORGANIZATION = 'DS-100'
 
-  def initialize(username)
-    @username = username
-    @gh_client = Octokit::Client.new(
-      access_token: ENV['github_token'],
+  def initialize(registration:, repo_num:)
+    @gh_client = Octokit::Client.new access_token: ENV['github_token']
+
+    @registration = registration
+    @repo_num = repo_num
+  end
+
+  def valid?
+    @gh_client.user @registration.github_username
+  rescue Octokit::NotFound
+    @registration.errors.add(
+      :github_username,
+      "This username does not exist on Github. Double check that you " \
+      "entered in the correct username.",
     )
+    false
   end
 
-
-  def user_exists?
-    begin
-      @gh_client.user @username
-    rescue Octokit::NotFound => e
-      false
-    end
+  def repo_name
+    # Returns a string like s0042
+    "s#{@repo_num.to_s.rjust(4, '0')}"
   end
 
-  def execute(id)
-    # Creates a repo name like s0042
-    repo_name = "s#{id.to_s.rjust(4, '0')}"
-
-    binding.pry
-
+  # Note that this method has no error handling if something goes wrong on the
+  # Github end. This means stuff can go wrong if this method gets interrupted
+  # but for simplicity's sake we'll just leave this as it is and handle messed
+  # up cases manually.
+  def execute
     create_repo repo_name
-    team = create_team repo_name
-
-    add_user_to_org(@username)
-    add_user_to_team(@username, team)
+    add_user_to_repo repo_name
   end
 
   def create_repo(repo_name)
-    @gh_client.create_repo(repo_name, {
+    @gh_client.create_repo(
+      repo_name,
       organization: ORGANIZATION,
       private: true,
-    })
+    )
   end
 
-  def create_team(repo_name)
-    @gh_client.create_team(ORGANIZATION, {
-      name: repo_name,
-      repo_names: ["#{ORGANIZATION}/#{repo_name}"],
-      permission: "push",
-    })
-  end
-
-  def add_user_to_org(username)
-    @gh_client.update_organization_membership(ORGANIZATION, {
-      user: username,
-      role: 'member'
-    })
-  end
-
-  def add_user_to_team(username, team)
-    @gh_client.add_team_membership(team.id, username)
+  def add_user_to_repo(repo_name)
+    @gh_client.add_collaborator "#{ORGANIZATION}/#{repo_name}", @username
   end
 end

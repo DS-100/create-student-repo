@@ -6,21 +6,16 @@ class RegistrationsController < ApplicationController
 
   def create
     @registration = Registration.new registration_params
+    create_github_repo = CreateGithubRepo.new(
+      registration: @registration,
+      repo_num: Registration.count + 1,
+    )
 
-    if @registration.valid?
-      create_github_repo = CreateGithubRepo.new @registration.github_username
+    if @registration.valid? && create_github_repo.valid?
+      create_github_repo.execute
 
-      unless create_github_repo.user_exists?
-        @registration.errors.add(
-          :github_username,
-          "This username does not exist on Github. Double check that you " +
-          "entered in the correct username."
-        )
-        render :new and return
-      end
-
+      @registration.repo_name = create_github_repo.repo_name
       @registration.save
-      create_github_repo.execute @registration.id
 
       redirect_to @registration
     else

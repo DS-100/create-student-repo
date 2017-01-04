@@ -11,6 +11,7 @@
 #  sid             :integer          not null
 #  email           :string           not null
 #  github_username :string           not null
+#  repo_name       :string
 #
 
 class Registration < ApplicationRecord
