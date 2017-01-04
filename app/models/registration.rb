@@ -12,6 +12,7 @@
 #  email           :string           not null
 #  github_username :string           not null
 #  repo_name       :string
+#  slug            :string
 #
 
 class Registration < ApplicationRecord
@@ -20,4 +21,7 @@ class Registration < ApplicationRecord
   validates :sid, presence: true, uniqueness: true
   validates :email, email: true, presence: true, uniqueness: true
   validates :github_username, presence: true, uniqueness: true
+
+  extend FriendlyId
+  friendly_id :github_username, use: :slugged
 end

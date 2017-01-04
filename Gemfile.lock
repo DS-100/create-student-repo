@@ -100,6 +100,8 @@ GEM
     figaro (1.0.0)
       thor (~> 0.14)
     formatador (0.2.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     guard (2.14.0)
@@ -331,6 +333,7 @@ DEPENDENCIES
   factory_girl_rails
   ffaker
   figaro (~> 1.0.0)
+  friendly_id (~> 5.1.0)
   guard-livereload
   guard-rspec
   guard-rubocop

@@ -12,6 +12,7 @@
 #  email           :string           not null
 #  github_username :string           not null
 #  repo_name       :string
+#  slug            :string
 #
 
 require 'rails_helper'
