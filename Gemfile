@@ -1,24 +1,29 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
 gem 'bundler', '>= 1.7.0'
 ruby "2.3.3"
 
-gem 'rails', '~> 5.0.1'
+gem 'figaro', '~> 1.0.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
-gem 'figaro', '~> 1.0.0'
+gem 'rails', '~> 5.0.1'
 
+gem 'coffee-rails', '~> 4.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 
+gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
 
 gem "awesome_print"
+gem "email_validator", "~> 1.5.0"
+gem "ffaker"
 gem "pry-rails"
 gem "simple_form"
+
+gem "octokit", "~> 4.0"
 
 group :development do
   gem "annotate"
@@ -50,6 +55,5 @@ group :test do
 
   gem "codeclimate-test-reporter", require: nil
 end
-
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
