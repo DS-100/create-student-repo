@@ -1,3 +1,5 @@
+<% repo_url = "https://github.com/DS-100/#{@registration.repo_name}" %>
+
 <h1>Repo created successfully</h1>
 
 <p>
@@ -7,11 +9,11 @@ your repo was created successfully.
 
 
 <p>
-The Github username <%= @registration.github_username %> was added to the repo
-<%= @registration.repo_name %>.
+Your Github username <%= @registration.github_username %> was added to the repo
+<a href="<%= repo_url %>"><%= @registration.repo_name %></a>.
 </p>
 
 <p>
-Please visit <a href="https://github.com/orgs/DS-100/invitation">
-https://github.com/orgs/DS-100/invitation</a> to gain access to the repo.
+<a href="http://www.ds100.org/spring-2017/syllabus">Back to the course
+page.</a>
 </p>
