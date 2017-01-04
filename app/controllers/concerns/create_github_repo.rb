@@ -34,6 +34,8 @@ class CreateGithubRepo
     add_user_to_repo repo_name
   end
 
+  private
+
   def create_repo(repo_name)
     @gh_client.create_repo(
       repo_name,
