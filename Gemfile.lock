@@ -177,6 +177,7 @@ GEM
       shellany (~> 0.0)
     octokit (4.6.2)
       sawyer (~> 0.8.0, >= 0.5.3)
+    oj (2.12.14)
     parser (2.3.3.1)
       ast (~> 2.2)
     pg (0.19.0)
@@ -223,6 +224,8 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    rollbar (2.14.0)
+      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -343,11 +346,13 @@ DEPENDENCIES
   launchy
   letter_opener
   octokit (~> 4.0)
+  oj (~> 2.12.14)
   pg (~> 0.18)
   pry-byebug
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.1)
+  rollbar
   rspec-rails
   rubocop
   sass-rails (~> 5.0)

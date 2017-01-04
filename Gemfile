@@ -57,4 +57,9 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
 end
 
+group :production do
+  gem "oj", "~> 2.12.14"
+  gem "rollbar"
+end
+
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
