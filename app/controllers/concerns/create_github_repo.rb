@@ -45,6 +45,7 @@ class CreateGithubRepo
   end
 
   def add_user_to_repo(repo_name)
-    @gh_client.add_collaborator "#{ORGANIZATION}/#{repo_name}", @username
+    @gh_client.add_collaborator("#{ORGANIZATION}/#{repo_name}",
+                                @registration.github_username)
   end
 end
