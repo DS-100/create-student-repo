@@ -24,7 +24,7 @@ class RegistrationsController < ApplicationController
   end
 
   def show
-    @registration = Registration.find params[:id]
+    @registration = Registration.friendly.find params[:id]
   end
 
   private
