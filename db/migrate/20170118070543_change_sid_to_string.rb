@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeSidToString < ActiveRecord::Migration[5.0]
   def up
     change_column :registrations, :sid, :string

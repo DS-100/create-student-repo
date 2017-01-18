@@ -2,11 +2,10 @@
 class CreateGithubRepo
   ORGANIZATION = 'DS-100'
 
-  def initialize(registration:, repo_num:)
+  def initialize(registration:)
     @gh_client = Octokit::Client.new access_token: ENV['github_token']
 
     @registration = registration
-    @repo_num = repo_num
   end
 
   def valid?
@@ -18,20 +17,33 @@ class CreateGithubRepo
       "entered in the correct username.",
     )
     false
+  rescue Faraday::TimeoutError
+    @registration.errors.add(
+      :github_username,
+      "We tried to create a repo but Github isn't responding. Try again in " \
+      "a few moments.",
+    )
+    false
   end
 
+  # Create a repo named s-<username>
   def repo_name
-    # Returns a string like s0042
-    "s#{@repo_num.to_s.rjust(4, '0')}"
+    "s-#{@registration.github_username}"
   end
 
-  # Note that this method has no error handling if something goes wrong on the
-  # Github end. This means stuff can go wrong if this method gets interrupted
-  # but for simplicity's sake we'll just leave this as it is and handle messed
-  # up cases manually.
   def execute
+    puts "[DEBUG] Creating repo #{repo_name}..."
     create_repo repo_name
     add_user_to_repo repo_name
+    puts "[DEBUG] Successfully created repo #{repo_name}!"
+    true
+  rescue Octokit::UnprocessableEntity
+    @registration.errors.add(
+      :github_username,
+      "Something wrong happened when creating your repo. We've been alerted " \
+      "and are looking into it.",
+    )
+    false
   end
 
   private

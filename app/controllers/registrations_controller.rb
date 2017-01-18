@@ -9,14 +9,10 @@ class RegistrationsController < ApplicationController
   def create
     @registration = Registration.new registration_params
 
-    create_github_repo = CreateGithubRepo.new(
-      registration: @registration,
-      repo_num: Registration.count + 1,
-    )
+    create_github_repo = CreateGithubRepo.new registration: @registration
 
-    if @registration.valid? && create_github_repo.valid?
-      create_github_repo.execute
-
+    all_valid = @registration.valid? && create_github_repo.valid?
+    if all_valid && create_github_repo.execute
       @registration.repo_name = create_github_repo.repo_name
       @registration.save
 
