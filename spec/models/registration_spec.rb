@@ -8,7 +8,7 @@
 #  updated_at      :datetime         not null
 #  first_name      :string           not null
 #  last_name       :string           not null
-#  sid             :integer          not null
+#  sid             :string           not null
 #  email           :string           not null
 #  github_username :string           not null
 #  repo_name       :string

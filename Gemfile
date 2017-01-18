@@ -26,6 +26,8 @@ gem "simple_form"
 
 gem "octokit", "~> 4.0"
 
+gem "rollbar"
+
 group :development do
   gem "annotate"
   gem "better_errors"
@@ -59,7 +61,6 @@ end
 
 group :production do
   gem "oj", "~> 2.12.14"
-  gem "rollbar"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
