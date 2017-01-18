@@ -36,10 +36,11 @@ class CreateGithubRepo
   def execute
     puts "[DEBUG] Creating repo #{repo_name}..."
     create_repo repo_name
+    puts "[DEBUG] Adding user to #{repo_name}..."
     add_user_to_repo repo_name
     puts "[DEBUG] Successfully created repo #{repo_name}!"
     true
-  rescue Octokit::UnprocessableEntity => e
+  rescue => e
     Rollbar.error e
     @registration.errors.add(
       :github_username,

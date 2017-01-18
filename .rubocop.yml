@@ -18,8 +18,8 @@ Metrics/LineLength:
   Max: 110
 
 Metrics/MethodLength:
-  Description: 'Limit methods to 15 lines.'
-  Max: 15
+  Description: 'Limit methods to 20 lines.'
+  Max: 20
 
 Metrics/AbcSize:
   Max: 20
