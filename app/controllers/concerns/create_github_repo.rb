@@ -10,14 +10,16 @@ class CreateGithubRepo
 
   def valid?
     @gh_client.user @registration.github_username
-  rescue Octokit::NotFound
+  rescue Octokit::NotFound => e
+    Rollbar.info e
     @registration.errors.add(
       :github_username,
       "This username does not exist on Github. Double check that you " \
       "entered in the correct username.",
     )
     false
-  rescue Faraday::ClientError
+  rescue Faraday::ClientError => e
+    Rollbar.warning e
     @registration.errors.add(
       :github_username,
       "We tried to create a repo but Github isn't responding. Try again in " \
@@ -37,7 +39,8 @@ class CreateGithubRepo
     add_user_to_repo repo_name
     puts "[DEBUG] Successfully created repo #{repo_name}!"
     true
-  rescue Octokit::UnprocessableEntity
+  rescue Octokit::UnprocessableEntity => e
+    Rollbar.error e
     @registration.errors.add(
       :github_username,
       "Something wrong happened when creating your repo. We've been alerted " \
