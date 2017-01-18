@@ -17,7 +17,7 @@ class CreateGithubRepo
       "entered in the correct username.",
     )
     false
-  rescue Faraday::TimeoutError
+  rescue Faraday::ClientError
     @registration.errors.add(
       :github_username,
       "We tried to create a repo but Github isn't responding. Try again in " \
