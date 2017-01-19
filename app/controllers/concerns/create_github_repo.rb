@@ -45,8 +45,12 @@ class CreateGithubRepo
     @registration.errors.add(
       :github_username,
       "Something wrong happened when creating your repo. We've been alerted " \
-      "and are looking into it.",
+      "and are looking into it. Try filling out the form once more or post " \
+      "on Piazza.",
     )
+    # If an error happened, undo all changes by deleting the repo. This will
+    # never raise an Exception so it's a safe operation.
+    delete_repo repo_name
     false
   end
 
@@ -58,6 +62,10 @@ class CreateGithubRepo
       organization: ORGANIZATION,
       private: true,
     )
+  end
+
+  def delete_repo(repo_name)
+    @gh_client.delete_repo "#{ORGANIZATION}/#{repo_name}"
   end
 
   def add_user_to_repo(repo_name)

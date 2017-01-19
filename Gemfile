@@ -26,8 +26,8 @@ gem "simple_form"
 
 gem "octokit", "~> 4.0"
 
-gem "rollbar"
 gem "newrelic_rpm"
+gem "rollbar"
 
 group :development do
   gem "annotate"
