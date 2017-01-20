@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class CreateGithubRepo
   ORGANIZATION = 'DS-100'
+  N_RETRIES = 3
 
   def initialize(registration:)
     @gh_client = Octokit::Client.new access_token: ENV['github_token']
@@ -69,7 +70,12 @@ class CreateGithubRepo
   end
 
   def add_user_to_repo(repo_name)
-    @gh_client.add_collaborator("#{ORGANIZATION}/#{repo_name}",
-                                @registration.github_username)
+    N_RETRIES.times do
+      success = @gh_client.add_collaborator("#{ORGANIZATION}/#{repo_name}",
+                                            @registration.github_username)
+      return true if success
+    end
+
+    raise "Failed to add #{@registration.github_username} to repo."
   end
 end
